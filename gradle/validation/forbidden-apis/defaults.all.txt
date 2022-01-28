@@ -1,3 +1,0 @@
-@defaultMessage Time-derived randomness shouldn't be present in the code.
-java.lang.System#currentTimeMillis()
-java.lang.System#nanoTime()
