@@ -1,139 +1,36 @@
-version = '2.3.2'
-
-group = "me.doubledutch"
-archivesBaseName = "lazyjson"
-
-apply plugin: 'jacoco'
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'signing'
+apply plugin: 'checkstyle'
 
-jacoco {
-    toolVersion = "0.7.6.201602180812"
-    reportsDir = file("$buildDir/jacoco")
+group = 'com.fishercoder'
+version = '1.0-SNAPSHOT'
+
+javadoc.options.encoding = 'UTF-8'
+compileJava.options.encoding = 'UTF-8'
+
+checkstyle {
+    //include ( '**/*.java')
+    configFile = file("${rootDir}/fishercoder_checkstyle.xml")
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled true
-    }
-}
+description = """"""
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-
-
-
-defaultTasks = ['clean', 'jar']
-
-
-File javaHome = new File(System.getProperty('java.home'))
-logger.lifecycle "Using Java from $javaHome (version ${System.getProperty('java.version')})"
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
-    mavenLocal()
     mavenCentral()
-}
-
-task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
-}
-
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+    maven { url "http://repo.maven.apache.org/maven2" }
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
-}
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'junit:junit:4.13'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+    testCompile group: 'junit', name: 'junit', version:'4.13'
+    testCompile("org.assertj:assertj-core:3.11.1")
 
-artifacts {
-    archives javadocJar, sourcesJar
-}
-
-check{
-    dependsOn jacocoTestReport
-}
-
-/*
-signing {
-    sign configurations.archives
-}
-*/
-
-
-jar {
-    def versionFile = file('./src/main/resources/lazyjson_version.properties')
- 
-    if(versionFile.canRead()){
-        def Properties props=new Properties()
-        props.load(new FileInputStream(versionFile))
-        def buildNumber=props['BUILD_NUMBER'].toInteger()+1
-        props['BUILD_NUMBER']=buildNumber.toString()
-        props['BUILD_DATE']=new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'",TimeZone.getTimeZone("UTC")).toString()
-        props['BUILD_VERSION']=version
-        props.store(versionFile.newWriter(),null)
-    }
-
-    baseName="lazyjson"
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    manifest {
-        attributes 'Implementation-Title': 'LazyJSON Library', 'Implementation-Version': version
-    }
-}
-/*
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            pom.project {
-                name 'LazyJSON'
-                packaging 'jar'
-                // optionally artifactId can be defined here 
-                artifactId 'lazyjson'
-                description 'A very fast, very lazy JSON parser for Java.'
-                url 'https://github.com/doubledutch/LazyJSON'
-
-                scm {
-                  connection 'https://github.com/doubledutch/LazyJSON'
-                  developerConnection 'https://github.com/doubledutch/LazyJSON'
-                  url 'https://github.com/doubledutch/LazyJSON'
-                }
-
-                licenses {
-                  license {
-                    name 'The Apache License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                  }
-                }
-
-                developers {
-                  developer {
-                    id 'kasperjj'
-                    name 'Kasper Jeppe Jeppesen'
-                    email 'kasper@doubledutch.me'
-                  }
-                }
-            }
-        }
-    }
-}
-*/
-
-allprojects {
-    tasks.withType(Test).configureEach {
-        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
-    }
-
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
