@@ -145,3 +145,10 @@ def getCurrentTimestamp()
   SimpleDateFormat df = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss")
   return df.format (new Date())
 }
+
+allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
+}
