@@ -1,1 +1,1 @@
-rootProject.name = 'leetcode-algorithms'
+include ':demo', ':arms', ':arms-autolayout', ':arms-imageloader-glide'

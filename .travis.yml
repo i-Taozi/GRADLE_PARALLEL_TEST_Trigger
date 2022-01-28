@@ -1,22 +1,30 @@
-language: java
+language: android
+jdk: oraclejdk8
+before_install:
+  - yes | sdkmanager "platforms;android-28"
 
-jdk:
-  - openjdk10
+env:
+  global:
+    - ANDROID_API_LEVEL=28
+    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+    - TRAVIS_SECURE_ENV_VARS=true
 
-before_script:
-- chmod a+x gradlew
+android:
+  components:
+    # The BuildTools version used by your project
+    - tools
+    - platform-tools
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - extra-android-m2repository
+    - extra-google-android-support
 
-node_js: "v13.7.0"
-install: "npm install && npm install standard --global"
+    # The SDK version used to compile your project
+    - android-$ANDROID_API_LEVEL
+  licenses:
+    - '.+'
 
-script: ./gradlew clean build && standard javascript/*
-
-notifications:
-  email:
-    recipients:
-      - fishercoder@gmail.com
-    on_failure: always
-
-branches:
-  only:
-    - master
+script:
+  - ./gradlew clean
+  #    - ./gradlew install
+  #    - ./gradlew bintrayUpload
+  - ./gradlew assembleDebug
