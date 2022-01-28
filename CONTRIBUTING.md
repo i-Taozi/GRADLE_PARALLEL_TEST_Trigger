@@ -1,51 +1,69 @@
-# Contributing to HttpBuilder-NG
+Contributing
+============
 
-> If you have not already, please read our [Code of Conduct](https://github.com/http-builder-ng/http-builder-ng/blob/master/CODE_OF_CONDUCT.md).
+Thank you for your interest in contributing to CraftBook! We appreciate your 
+effort, but to make sure that the inclusion of your patch is a smooth process, we
+ask that you make note of the following guidelines.
 
-## Did you find a bug?
+* **Follow the [Oracle coding conventions](http://www.oracle.com/technetwork/java/codeconv-138413.html).**
+  We can't stress this enough; if your code has notable issues, it may delay
+  the process significantly.
+* **Target Java 8 for source and compilation.** Make sure to mark methods with
+  ` @Override` that override methods of parent classes, or that implement
+  methods of interfaces.
+* **Use only spaces for indentation.** Our indents are 4-spaces long, and tabs
+  are unacceptable.
+* **Wrap code to a 120 column limit.** We do this to make side by side diffs
+  and other such tasks easier. Ignore this guideline if it makes the code
+  too unreadable.
+* **Write complete Javadocs.** Do so only for public methods, and make sure
+  that your `@param` and `@return` fields are not just blank.
+* **Don't tag classes with @author.** Some legacy classes may have this tag,
+  but we are phasing it out.
+* **Make sure the code is efficient.** One way you can achieve this is to spend
+  around ten minutes to think about what the code is doing and whether it
+  seems awfully roundabout. If you had to copy the same large piece of
+  code in several places, that's bad.
+* **Keep commit summaries under 70 characters.** For more details, place two
+  new lines after the summary line and write away!
+* **Test your code.** We're not interested in broken code, for the obvious reasons.
+* **Write unit tests.** While this is strictly optional, we recommend it for
+  complicated algorithms.
 
-You have a few options:
 
-* You can walk away slowly and try to forget anything ever happened (we wouldn't blame you, but we'd rather you didn't).
-* You could [submit an issue](https://github.com/http-builder-ng/http-builder-ng/issues/new) and we will do our best to get it fixed in an upcoming release.
-* You could fork the project, fix it yourself and submit a pull request (see below)
+Checklist
+---------
 
-## Do you have a feature suggestion?
+Ready to submit? Perform the checklist below:
 
-See above.
+1. Have all tabs been replaced into four spaces? Are indentations 4-space wide?
+2. Have I written proper Javadocs for my public methods? Are the @param and
+   @return fields actually filled out?
+3. Have I `git rebase`d my pull request to the latest commit of the target
+   branch?
+4. Have I combined my commits into a reasonably small number (if not one)
+   commit using `git rebase`?
+5. Have I made my pull request too large? Pull requests should introduce
+   small sets of changes at a time. Major changes should be discussed with
+   the team prior to starting work.
+6. Are my commit messages descriptive?
 
-## Do you want to help?
+You should be aware of [`git rebase`](http://learn.github.com/p/rebasing.html).
+It allows you to modify existing commit messages, and combine, break apart, or
+adjust past changes.
 
-Check to see if we have any issues labeled "Help Wanted" or if we have any that have been sitting for a while inactive. Take a branch off of the `master` branch (though we may ask you to base it off of `development`) and create a pull request once your code is ready.
+Example
+-------
 
-## Having problems using HttpBuilder?
+This is **GOOD:**
 
-The best place to get help with HTTP Builder NG is via [StackOverflow](http://stackoverflow.com/) with the tag `httpbuilder-ng` - be careful there is a lot of information out there about the old version of the code and the solutions will most likely _not_ work. You can also try to contact us directly, but that is not recommended.
+    if (var.func(param1, param2)) {
+        // do things
+    }
 
-## Submitting an Issue
+This is **EXTREMELY BAD:**
 
-If you have decided to [submit an issue](https://github.com/http-builder-ng/http-builder-ng/issues/new), please be as descriptive as possible. Provide details about the code related to the issue and provide as much of an example as possible - if we can't reproduce the issue, we probably won't be able to fix it any time soon. A good guideline is "[How to create a Minimal, Complete, and Verifiable example](https://stackoverflow.com/help/mcve)" from StackOverflow.
-
-Once your issue has been created, we will triage it and figure out how to proceed.
-
-Also, please be sure to check the [User Guide Troubleshooting](https://http-builder-ng.github.io/http-builder-ng/asciidoc/html5/#_troubleshooting) section for any known resolution to your problem. 
-
-## Submitting a Pull Request
-
-If you fix a bug or implement a new feature and want to get it into the main repo, create a Pull Request. We are pretty low on process and code standards, so basically if you follow the general Java and Groovy coding standards you should be fine. We will review the request and figure out where to go with it from there.
-
-A couple general rules. If you add or modify code:
-
-* Provide Spock unit tests for it (don't decrease the code coverage).
-* Add or update relevant documentation (User Guide, JavaDocs, Readme, etc).
-* Use our standard copyright header (or run `./gradlew licenseFormat` to have it applied)
-* Do not add `@author` tags to your contributions - we prefer to use `git blame` for authorship tracking
-
-As far as branches go, we will generally have a `development` branch off of `master` which will be the branching off point for small development tasks which will be released together. With that in mind:
-
-* If you have a bug fix, it's a bit of a toss up, you could merge into `development` or `master` based on the scope of the change and severity of the issue. When in doubt, merge into `development` and we will redirect as needed.
-* If you have a feature, you should work off of the `development` branch and then merge into it when you are ready to submit.
-
-We are pretty flexible and there are always exceptions, just think about what you are doing and everything will be ok.
-
-When/if we accept your contributions, we will add your name and GitHub profile link to the "Contributions" section of the User Guide.
+    if(var.func( param1, param2 ))
+    {
+        // do things
+    }
