@@ -1,0 +1,26 @@
+Gradle shortcuts
+----------------
+
+Use project-local gradlew wrapper, other versions
+may not be consistent.
+
+# Run all tests and checks.
+./gradlew clean check
+
+# Assemble HPPC JAR file/
+./gradlew -p hppc assemble
+
+IDE workflow
+------------
+
+IntelliJ should import the project without any additional
+steps. Compilation and test launches are done via gradle
+wrapper so everything should just work.
+
+Benchmarks
+----------
+
+./gradlew benchmark
+
+Will generate and display benchmark JAR location and JMH 
+options.
