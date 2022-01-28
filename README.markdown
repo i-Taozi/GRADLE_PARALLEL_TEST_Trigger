@@ -1,62 +1,102 @@
 
-<img src="https://api.travis-ci.org/stephenh/joist.svg?branch=master" />
+<a href="https://travis-ci.org/stephenh/tessell"><img src="https://api.travis-ci.org/stephenh/tessell.svg"></a>
 
-Joist is an ORM based on code generation.
+[![Join the chat at https://gitter.im/stephenh/tessell](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/stephenh/tessell?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The goal is to provide Rails-like "empty domain objects" in an ORM that is simple, pleasant to use, and scales nicely to really large schemas.
+See [tessell.org](http://www.tessell.org).
 
-See [joist.ws](http://joist.ws) for more information.
+Eclipse Setup
+-------------
 
-Status
-======
+After checking Tessell out of git, there are two main projects, `tessell-user` and `tessell-dev`.
 
-This project had been used in production for ~4-5 years, but that system is now shutdown and so Joist is maintenance mode.
+`tessell-user` uses annotation processing to generate some event classes, which is unfortunately kind of janky to setup in Eclipse.
 
-I assert it is still basically a best-in-class ORM in the Java ecosystem, for it's specific codegen-/convention-driven workflow, but it could use some updating for modern Java idioms if anyone wants to pick it up.
-
-Artifacts
-=========
-
-The artifacts are available in [Jitpack](https://jitpack.io/#stephenh/joist), i.e. with artifact names of `com.github.stephenh.joist:joist-util:1.14.0`.
-
-Build against MySQL
-===================
-
-The Joist test suite requires running tests against a local database; to use MySQL for this:
-
-* Edit `features/build.properties` (which is not checked in) and set your local MySQL password
-
-  On a clean ~18.04 Ubuntu, see [this SO answer](https://stackoverflow.com/questions/33991228/what-is-the-default-root-pasword-for-mysql-5-7/50305285#50305285) to set your local `root` password.
-
-* Run `./gradlew install`
-
-Build against Postgres
-======================
-
-The Joist test suite requires running tests against a local database; to use Postgres for this:
-
-* Edit `features/build-pg.properties` (which is not checked in) and set your local `postgres` user/admin password
-
-  On a clean Ubuntu, Postgres's admin user/password is configured by:
-
-  * `sudo -u postgres psql postgres` and then `\password postgres` to set your local admin password
-  * In `postgresql.conf` ensure `listen_addresses` is set
-
-* Edit `features/.../Registry.java` and change the `db` field to `Db.PG`
-* Edit `features/.../JoistCli.java` and change the `db` field to `Db.PG`
-* Run `./gradlew install`
-
-Note that because of Postgres's ability to defer FK constraints, the `features/.../codegen` output will all change as the MySQL version is currently checked-in.
+1. Install the [Gradle Eclipse plugin](https://github.com/spring-projects/eclipse-integration-gradle)
+  * This is not strictly required, but the checked-in `.classpath`/`.factorypath` files assume this setup
+2. Go to Window / Preferences / Java / Build Path / Classpath Variables
+  * Add `GRADLE_REPO` has `/yourHomeDir/.gradle/caches/modules-2`
+3. Import `tessell-user` and `tessell-dev` into Eclipse
+  * Gradle should download all the dependencies and put them onto the Gradle classpath container
+  * However, Eclipse needs to be "kicked" to see the annotation processor jar is now available
+4. Close `tessell-user`
+5. Open `tessell-user`
+6. Clean `tessell-user`
+7. Hopefully you have no build errors
 
 Todo
-====
+----
 
-* Composite columns (e.g. TimePoint with both time+zone), if needed
-* Don't muck with system properties
-* Repo interfaces
-  * Implement stub that copies values (iterates Alias, `toJdbcValue`, `ArrayList<Object>`)
-  * Only one commit/flush at a time, serialized transaction isolation, leverage op locks
-* Configuration option (global, per-collection) to disable collection ticking
-  * ...maybe remove/solve annoyance of cross-collection stomp?
-* Document PostgreSQL/MySQL no fsync settings for faster tests
+* Add @Place annotation
+  * Take name of presenter
+  * Any constructor parameters--how to denote application-level vs. request-level?
+* Figure out cross-presenter transitions
+  * Event bus doesn't make sense--these aren't global things
+  * Have Slot listen to presenter events?
+* Support 2nd generation Presenter interfaces via event hook hints in `ui.xml` file
+* form disable on ServerCall
+* indicator on ServerCall
+* Pre-fill the handler (optional);
+* doLogin.call(user, pass);
+* HasDispatchAsync to ServerCall cstr
+* Out-of-the-box local storage integration (probably via changes to dtonator, use AutoBeans)
+* PropertyGroup copies are not deep
+
+Notes
+-----
+
+* ResourcesGenerator assumes a global namespace of image/CSS files, even if you use subdirectories. It also assumes all image/CSS files are below the packageName you pass to it.
+
+Binder DSL Ideas
+----------------
+
+* SetActions
+
+      binder.when(...).is(true).set(//
+        textOf(...).toOrElse("", ""), // toOrElse returns SetAction
+        styleOf(...).to(bz.active())); // to returns SetAction
+
+      binder.on(keyPressOf(...)).then(execute(command));
+      binder.on(clickOf(...)).then(toggle(button));
+      binder.on(clickOf(...)).set(SetAction...);
+      binder.on(blurOf(...)).set(SetAction...);
+
+      // or, for more unique static imports
+      binder.on(blurOf(...), thenSet(textOf(...).to(asdf)));
+
+      // string actions
+      binder.when(condition, action1, action2);
+      // e.g.
+      binder.when(value, is(true), show(this), hide(that));
+
+* Non-trivial omponents, e.g.
+
+      <foo:Form>
+        <fields>
+          <foo:TextLine />
+        </fields>
+        <blah>
+          <foo:Bar />
+        </blah>
+      </foo:Form>
+
+  Goes to:
+
+      form.addField(textLine1);
+      form.setBlah(...);
+
+  Any HTML implicitly becomes an HTMLPanel, e.g.:
+
+      <foo:Form>
+        <blah>
+          <p>
+            <foo:Bar />
+          </p>
+        </blah>
+      </foo:Form>
+
+  Goes to:
+
+      form.setBlah(htmlPanel, List<Bar> bars);
+
 

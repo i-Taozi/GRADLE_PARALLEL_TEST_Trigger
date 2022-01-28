@@ -1,12 +1,5 @@
-/.gradle
-*.log*
-build*.properties
-build/
-newproject
-docs.zip
-.classpath
-.project
-/*/bin/
-org.eclipse.buildship.core.prefs
-/*/out/
-/.idea/
+/examples-workspace
+.gwt
+.gradle
+.checkstyle
+build

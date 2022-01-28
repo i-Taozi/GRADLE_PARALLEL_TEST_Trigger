@@ -1,16 +1,16 @@
 
-plugins {
-  id "com.github.ben-manes.versions" version "0.17.0"
-}
-
 subprojects {
   apply plugin: 'java'
+  apply plugin: 'project-report'
   apply plugin: 'maven'
   apply plugin: 'eclipse'
 
-  group = 'joist'
+  group = 'org.tessell'
   version = [System.env.TRAVIS_TAG, 'SNAPSHOT'].find { it != null }
-  archivesBaseName = "joist-${name}"
+  archivesBaseName = "tessell-${name}"
+  ext {
+    gwtVersion = '0.0.0-230c633'
+  }
 
   sourceCompatibility = '1.8'
   targetCompatibility = '1.8'
@@ -26,8 +26,7 @@ subprojects {
 
   repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
-    jcenter()
+    maven { url 'http://repo.joist.ws' }
   }
 
   configurations {
@@ -43,16 +42,22 @@ subprojects {
       plusConfigurations += [ configurations.provided ]
     }
   }
+
+  dependencies {
+    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.6'
+  }
+
+  uploadArchives {
+    repositories.mavenDeployer {
+      configuration = configurations.deployerJars
+      repository(url: 'scp://repo.joist.ws/var/www/joist.repo') {
+        authentication(userName: System.env.REPO_USERNAME, password: System.env.REPO_PASSWORD)
+      }
+    }
+  }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.10'
+    gradleVersion = '2.3'
 }
 
-
-allprojects {
-    tasks.withType(Test).configureEach {
-        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
-    }
-
-}
