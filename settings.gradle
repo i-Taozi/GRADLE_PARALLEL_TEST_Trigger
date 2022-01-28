@@ -1,5 +1,1 @@
-
-include 'dev'
-include 'user'
-include 'examples'
-
+include ':app'
