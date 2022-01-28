@@ -35,6 +35,10 @@ ext {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
     ext.displayName = null
     ext.buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
 
