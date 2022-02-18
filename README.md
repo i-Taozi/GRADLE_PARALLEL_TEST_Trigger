@@ -1,175 +1,144 @@
-[![Build Status](https://travis-ci.org/SolaceSamples/solace-samples-cloudfoundry-java.svg?branch=master)](https://travis-ci.org/SolaceSamples/solace-samples-cloudfoundry-java)
+Spring Integration Samples
+==========================
+
+# Note
+
+This (main) branch requires Spring Integration 5.0 or above. For samples running against earlier versions of Spring Integration, use the __SI4.3.x__ and other branches.
+
+# Introduction
+
+Welcome to the **Spring Integration Samples** repository which provides **50+ samples** to help you learn [Spring Integration][]. To simplify your experience, the *Spring Integration* samples are split into 4 distinct categories:
+
+* Basic
+* Intermediate
+* Advanced
+* Applications
+* DSL
+
+Inside of each category you'll find a **README.md** file, which will contain a more detailed description of that category. Each sample also comes with its own **README.md** file explaining further details, e.g. how to run the respective sample.
+
+| For additional samples, please also checkout the [Spring Integration Extensions][] project as it also provides numerous samples.
+
+*Happy Integration!*
+
+## Related GitHub projects
+
+* [Spring Integration][]
+* [Spring Integration Extensions][]
+* [Spring Integration Templates][]
+* [Spring Integration Java Dsl][]
+* [Spring Integration Dsl Groovy][]
+* [Spring Integration Dsl Scala][]
+* [Spring Integration Pattern Catalog][]
+
+## Community Sample Projects
+
+* [Xavier Padró][]
+
+# Categories
+
+Below is a short description of each category.
+
+## DSL
+
+This directory holds demos/samples for Spring Integration 4.0 Java Configuration as well as the Java DSL Extension.
+
+## Basic
+
+This is a good place to get started. The samples here are technically motivated and demonstrate the bare minimum with regard to configuration and code to help you to get introduced to the basic concepts, API and configuration of Spring Integration. For example, if you are looking for an answer on how to wire a **Service Activator**  to a **Channel** or how to apply a **Gateway** to your message exchange or how to get started with using the **MAIL** or **XML** module, this would be the right place to find a relevant sample. The bottom line is that this is a good starting point.
+
+* **amqp** - Demonstrates the functionality of the various **AMQP Adapters**
+* **barrier** - Shows how to suspend a thread until some asynchronous event occurs
+* **control-bus** - Demonstrates the functionality of the **Control Bus**
+* **enricher** - This sample demonstrates how the Enricher components can be used
+* **feed** - Demonstrates the functionality of the **Feed Adapter** (RSS/ATOM)
+* **file** - Demonstrates aspects of the various File Adapters (e.g. **File Inbound/Outbound Channel Adapters**, file **polling**)
+* **ftp** - Demonstrates the **FTP support** available with Spring Integration
+* **helloworld** - Very simple starting example illustrating a basic message flow (using **Channel**, **ServiceActivator**, **QueueChannel**)
+* **http** - Demonstrates request/reply communication when using a pair of **HTTP Inbound/Outbound gateways**
+* **jdbc** - Illustrates the usage of the Jdbc Adapters, including object persistence and retrieval
+* **jms** - Demonstrates **JMS** support available with Spring Integration
+* **jmx** - Demonstrates **JMX** support using a **JMX Attribute Polling Channel** and **JMX Operation Invoking Channel Adapter**
+* **jpa** - Shows the usage of the JPA Components can be used
+* **mail** - Example showing **IMAP** and **POP3** support
+* **mqtt** - Demonstrates the functionality of inbound and outbound **MQTT Adapters**
+* **mongodb** - Shows how to persist a Message payload to a **MongoDb** document store and how to read documents from **MongoDb**
+* **oddeven** - Example combining the functionality of **Inbound Channel Adapter**, **Filter**, **Router** and **Poller**
+* **jpa** - This sample illustrates how the JPA Components can be used
+* **quote** - Example demoing core EIP support using **Channel Adapter (Inbound and Stdout)**, **Poller** with Interval Trigers, **Service Activator**
+* **sftp** - Demonstrating SFTP support using **SFTP Inbound / Outbound Channel Adapters**
+* **tcp-amqp** - Demonstrates basic functionality of bridging the **Spring Integration TCP Adapters** with **Spring Integration AMQP Adapters**
+* **tcp-broadcast** - Demonstrates broadcasting a message to multiple connected TCP clients.
+* **tcp-client-server** - Demonstrates socket communication using **TcpOutboundGateway**, **TcpInboundGateway** and also uses a **Gateway** and a **Service Activator**
+* **tcp-with-headers** - Demonstrates sending headers along with the payload over TCP using JSON.
+* **testing-examples** - A series of test cases that show techniques to **test** Spring Integration applications.
+* **twitter** - Illustrates Twitter support using the **Twitter Inbound Channel Adapter**, **Twitter Inbound Search Channel Adapter**, **Twitter Outbound Channel Adapter**
+* **ws-inbound-gateway** - Example showing basic functionality of the **Web Service Gateway**
+* **ws-outbound-gateway** - Shows outbound web services support using the **Web Service Outbound Gateway**, **Content Enricher**, Composed Message Processor (**Chain**)
+* **xml** - Example demonstrates various aspects of the **Xml** support using an **XPath Splitter**, **XPath Router**, **XSLT Transformer** as well as **XPath Expression** support
+* **xmpp** - Show the support for [**XMPP**](https://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol) (formerly known as Jabber) using e.g. GoogleTalk
+
+## Intermediate
+
+This category targets developers who are already more familiar with the Spring Integration framework (past getting started), but need some more guidance while resolving more advanced technical problems that you have to deal with when switching to a Messaging architecture. For example, if you are looking for an answer on how to handle errors in various scenarios, or how to properly configure an **Aggregator** for the situations where some messages might not ever arrive for aggregation, or any other issue that goes beyond a basic understanding and configuration of a particular component to address "what else you can do?" types of problems, this would be the right place to find relevant examples.
+
+* **async-gateway** - Usage example of an asynchronous **Gateway**
+* **dynamic-poller** - Example shows usage of a **Poller** with a custom **Trigger** to change polling periods at runtime
+* **async-gateway** - Example shows usage of an **Asynchronous Gateway**
+* **errorhandling** - Demonstrates basic **Error Handling** capabilities of Spring Integration
+* **file-processing** - Sample demonstrates how to wire a message flow to process files either sequentially (maintain the order) or concurrently (no order).
+* **mail-attachments** - Demonstrates the processing of email attachments
+* **monitoring** The project used in the *[Spring Integration Management and Monitoring Webinar](https://www.springsource.org/node/3598)* Also available on the *[SpringSourceDev YouTube Channel](https://www.youtube.com/SpringSourceDev)*
+* **multipart-http** - Demonstrates the sending of HTTP multipart requests using Spring's **RestTemplate** and a Spring Integration **Http Outbound Gateway**
+* **rest-http** - This sample demonstrates how to send an HTTP request to a Spring Integration's HTTP service while utilizing Spring Integration's new HTTP Path usage. This sample also uses Spring Security for HTTP Basic authentication. With HTTP Path facility, the client program can send requests with URL Variables.
+* **retry-and-more** Provides samples showing the application of MessageHandler Advice Chains to endpoints - retry, circuit breaker, expression evaluating
+* **splitter-aggregator-reaper** A demonstration of implementing the Splitter and Aggregator *Enterprise Integration Patterns* (EIP) together. This sample also provides a concrete example of a [message store reaper][] in action.
+* **stored-procedures-derby**  Provides an example of the stored procedure Outbound Gateway using *[Apache Derby](https://db.apache.org/derby/)*
+* **stored-procedures-ms** Provides an example of the stored procedure Outbound Gateway using *Microsoft SQL Server*
+* **stored-procedures-oracle** Provides an example of the stored procedure Outbound Gateway using *ORACLE XE*
+* **stored-procedures-postgresql** Provides an example of the stored procedure Outbound Gateway using *[PostgreSQL](https://www.postgresql.org/)*
+* **tcp-async-bi-directional** - Demonstrates the use of *Collaborating Channel Adapters* for arbitrary async messaging (not request/reply) between peers.
+* **tcp-client-server-multiplex** - Demonstrates the use of *Collaborating Channel Adapters* with multiple in-flight requests/responses over a single connection.
+* **travel** - More sophisticated example showing the retrieval of weather (SOAP Web Service) and traffic (HTTP Service) reports using real services
+* **tx-synch** Provides a sample demonstrating the use of transaction synchronization, renaming an input file to a different filename, depending on whether the transaction commits, or rolls back.
 
-# Getting Started Examples
-## Solace Cloud Foundry Java
+## Advanced
 
-The repository contains example applications that use the Solace Pubsub+ service on Pivotal Cloud Foundry. The goal of these sample applications is to illustrate various ways of consuming the `VCAP_SERVICES` environment variable from a Solace Pubsub+ Cloud Foundry service instance. You can get more details on the Solace Pubsub+ Service for Pivotal Cloud Foundry [here](http://docs.pivotal.io/solace-messaging/).
+This category targets advanced developers who are quite familiar with Spring Integration but are looking to address a specific custom need by extending the Spring Integration public API. For example, if you are looking for samples showing how to implement a custom **Channel** or **Consumer** (event-based or polling-based), or you are trying to figure out what is the most appropriate way to implement a custom **BeanParser** on top of the Spring Integration BeanParser hierarchy when implementing a custom namespace, this would be the right place to look. Here you can also find samples that will help you with adapter development. Spring Integration comes with an extensive library of adapters that allow you to connect remote systems with the Spring Integration messaging framework. However you might have a need to integrate with a system for which the core framework does not provide an adapter, so you have to implement your own. This category would include samples showing you how to implement various adapters.
 
-This repository contains a sample application modified in the following ways:
+* **advanced-testing-examples** - Example test cases that show advanced techniques to test Spring Integration applications
+* **dynamic-ftp** - Demonstrates one technique for sending files to dynamic destinations.
+* **dynamic-tcp-client** - Demonstrates a technique for dynamically creating TCP clients.
 
-* Simple Java Application
-* Using Spring Cloud Connectors
-* Connecting using Transport Level Security
+## Applications
 
-While not necessary for a Java Application or a straight Spring Cloud Connector applications, the samples in this repository still make use of of Spring Boot so they can easily expose a simple REST interface to provide interactive ways to subscribe, send and receive Solace messages. Spring Boot is not required. You can make use of the Spring Cloud Connectors in any Java Application. See the walk through tutorials for more details.
+This category targets developers and architects who have a good understanding of Message-Driven architecture and Enterprise Integration Patterns, and have an above average understanding of Spring and Spring integration and who are looking for samples that address a particular business problem. In other words, the emphasis of samples in this category is '**business use cases**' and how they can be solved via a Messaging architecture and Spring Integration in particular. For example, if you are interested to see how a Loan Broker process or Travel Agent process could be implemented and automated via Spring Integration, this would be the right place to find these types of samples.
 
-All of these sample applications have full walk through tutorials that explain the code in detail. Tutorials for each sample are available here:
+* **cafe** - Emulates a simple operation of a coffee shop combining various Spring Integration adapters (Including **Router** and **Splitter**) see [Appendix A of the reference documentation](https://docs.spring.io/spring-integration/docs/current/reference/html/#samples) for more details. Implementations are provided for:
+  - AMQP
+  - JMS
+  - In memory channels
+* **cafe-scripted** - Scripted implementation of the classic **cafe** sample application. Supports **JavaScript**, **Groovy**, **Ruby**, and **Python**.
+* **loan-broker** - Simulates a simple banking application (Uses **Gateway**, **Chain**, **Header Enricher**, **Recipient List Router**, **Aggregator**) see [Appendix A of the reference documentation](https://docs.spring.io/spring-integration/docs/current/reference/html/#samples) for more details
+* **loanshark** This extension to the loan broker sample shows how to exchange messages between Spring Integration applications (and other technologies) using **UDP**.
+  **file-split-ftp** - Reads a file; splits into 3 based on contents; sends files over ftp; sends email with results.
 
-* https://dev.solace.com/samples/solace-samples-cloudfoundry-java/
+# Contributing
 
-What follows is a brief summary for people that want to dive straight into the code.
+See the [Spring Integration Contributor Guidelines](https://github.com/spring-projects/spring-integration/blob/master/CONTRIBUTING.adoc) for information about how to contribute to this repository.
 
-## Common Setup
+# Resources
 
-The sample applications specify a dependency on a Solace Pubsub+ service instance named `solace-pubsub-sample-instance`. To create the required Solace PubSub+ service instance, do the following:
+For more information, please visit the Spring Integration website at: [https://projects.spring.io/spring-integration/](https://projects.spring.io/spring-integration/)
 
-	cf create-service solace-pubsub shared solace-pubsub-sample-instance
+[Spring Integration]: https://github.com/spring-projects/spring-integration
+[Spring Integration Extensions]: https://github.com/spring-projects/spring-integration-extensions
+[Spring Integration Templates]: https://github.com/spring-projects/spring-integration-templates/tree/master/si-sts-templates
+[Spring Integration Java Dsl]: https://github.com/spring-projects/spring-integration-java-dsl
+[Spring Integration Dsl Groovy]: https://github.com/spring-projects/spring-integration-dsl-groovy
+[Spring Integration Dsl Scala]: https://github.com/spring-projects/spring-integration-dsl-scala
+[Spring Integration Pattern Catalog]: https://github.com/spring-projects/spring-integration-pattern-catalog
 
-### Building
+[message store reaper]: https://docs.spring.io/spring-integration/api/org/springframework/integration/store/MessageGroupStoreReaper.html
 
-Just clone and build. For example:
-
-1. clone this GitHub repository
-1. `./gradlew build`
-
-### Deploying
-
-To deploy the individual applications to Cloud Foundry:
-
-1. cd to the project directory (`java-app` or `spring-cloud`)
-1. `$ cf push`
-
-## Java Application
-
-application name: `solace-sample-java-app`
-
-This application uses the Java library from http://www.JSON.org/ to parse the `VCAP_SERVICES` environment variable to determine the connection details for Solace PubSub+. For more details and example usage, see the walk through tutorial here:
-
-* [Online Tutorial](https://dev.solace.com/samples/solace-samples-cloudfoundry-java/java-app/)
-
-## Java Application using Spring Cloud Connector
-
-application name: `solace-sample-spring-cloud`
-
-This application makes use of the Spring Cloud Connectors project to automatically parse the `VCAP_SERVICES` environment variable. Applications do *not* have to be a Spring Boot application to make use of Spring Cloud Connectors. This example makes use of Spring Boot for convenience in enabling the simple REST API. In any Java Applications, simply specify the following dependencies in your build:
-
-	compile 'org.springframework.cloud:spring-cloud-spring-service-connector:1.2.3.RELEASE'
-	compile 'org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.2.3.RELEASE'
-	compile 'com.solace.cloud.cloudfoundry:solace-spring-cloud-connector:2.1.+'
-
-The `solace-spring-cloud-connector` is a Spring Cloud Connectors extension to parse the `VCAP_SERVICES` for the Solace PubSub+ service instance information. Check out the project page for more details:
-
-* https://github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-connector
-
-The easiest way for applications to access the SolaceServiceCredentials object is by Service Id (ex: "MyService) as follows:
-
-	CloudFactory cloudFactory = new CloudFactory();
-	Cloud cloud = cloudFactory.getCloud();
-	SolaceServiceCredentials solaceServiceCredentials = (SolaceServiceCredentials) cloud.getServiceInfo("MyService");
-
-Alternatively applications could search through the environment and discover matching services as follows:
-
-	SolaceServiceCredentials solaceServiceCredentials = null;
-	List<ServiceInfo> services = cloud.getServiceInfos();
-
-	// Connect to the first Solace PubSub+ service that is found in the services list.
-	for (ServiceInfo service : services) {
-		if (service instanceof SolaceServiceCredentials) {
-			solaceServiceCredentials = (SolaceServiceCredentials)service;
-			break;
-		}
-	}
-
-For more details and example usage, see the walk through tutorial here:
-
-* [Online Tutorial](https://dev.solace.com/samples/solace-samples-cloudfoundry-java/spring-cloud/)
-
-## Java Application using Java CFEnv
-
-application name: `solace-sample-spring-cloud-java-cfenv`
-
-This application makes use of the Java CFEnv project to automatically parse the `VCAP_SERVICES` environment variable. In any Java Applications, simply specify the following dependencies in your build:
-
-    compile 'com.solace.cloud.cloudfoundry:solace-java-cfenv'
-
-The `solace-java-cfenv` is the successor to `solace-spring-cloud-connector` due to the deprecation of Spring Cloud Connectors. It is a Java CFEnv extension to parse the `VCAP_SERVICES` for the Solace PubSub+ service instance information. Check out the project page for more details:
-
-* https://github.com/SolaceProducts/solace-spring-boot/tree/master/solace-java-cfenv
-
-To access the SolaceServiceCredentials object, applications must retrieve it in a manner similar to the following:
-
-	SolaceServiceCredentials solaceServiceCredentials = null;
-	List<SolaceServiceCredentials> solaceServiceCredentialsList = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
-
-	// Connect to the first Solace PubSub+ service that is found in the services list.
-	if (solaceServiceCredentialsList.size() > 0) {
-	    solaceServiceCredentials = solaceServiceCredentialsList.get(0);
-	}
-
-## Secure Session
-
-application name: `solace-sample-secure-session`
-
-This application is based on the [Solace Java CFEnv](https://github.com/SolaceProducts/solace-spring-boot/tree/master/solace-java-cfenv) described above, but shows how to use
-Transport Level Security (TLS) between the Java application and the Solace PubSub+ Service Instance.
-
-* [Online Tutorial](https://dev.solace.com/samples/solace-samples-cloudfoundry-java/secure-session/)
-
-## LDAP
-
-This is not a standalone application, but instead a modification to the existing sample apps.
-
-If application access is enabled by the cloud operator, bindings will not contain application access credentials and the credentials will instead have to be provided to the application externally.
-
-This manifests as the service instance owner having to manually configure LDAP authorization groups for application access.
-
-* [Online Tutorial](https://dev.solace.com/samples/solace-samples-cloudfoundry-java/ldap/)
-
-## Try out the Applications
-
-The sample applications have a simple REST interface that allows you to subscribe, send and receive Solace messages. You can try the applications out using command like the following.
-
-Determine the URL of the sample application and export it for use in the `curl` commands. Adjust the app name as appropriate to match the sample you're using:
-
-	export APP_NAME=solace-sample-java-app
-	export APP_URL=`cf apps | grep $APP_NAME | grep started | awk '{ print $6}'`
-	echo "The application URL is: ${APP_URL}"
-
-Subscribe to topic "test"
-
-	curl -X POST -H "Content-Type: application/json;charset=UTF-8" -d '{"subscription": "test"}' http://$APP_URL/subscription
-
-Send message with topic "test"
-
-	curl -X POST -H "Content-Type: application/json;charset=UTF-8" -d '{"topic": "test", "body": "TEST_MESSAGE"}' http://$APP_URL/message
-
-The message is received asynchronously, check for the last message.
-
-	curl -X GET http://$APP_URL/message
-
-Unsubscribe the application from topic "test"
-
-    curl -X DELETE http://$APP_URL/subscription/test
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Authors
-
-See the list of [contributors](https://github.com/SolaceSamples/solace-samples-cloudfoundry-java/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the Apache License, Version 2.0. - See the [LICENSE](LICENSE) file for details.
-
-## Resources
-
-For more information try these resources:
-
-
-- [Tutorials](https://tutorials.solace.dev/)
-- The Solace Developer Portal website at: http://dev.solace.com
-- Get a better understanding of [Solace technology](http://dev.solace.com/tech/).
-- Check out the [Solace blog](http://dev.solace.com/blog/) for other interesting discussions around Solace technology
-- Ask the [Solace community.](http://dev.solace.com/community/)
+[Xavier Padró]: https://github.com/xpadro/spring-integration
