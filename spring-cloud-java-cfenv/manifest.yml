@@ -1,0 +1,10 @@
+---
+applications:
+- name: solace-sample-spring-cloud-java-cfenv
+  memory: 1G
+  path: build/libs/solace-sample-spring-cloud-java-cfenv.jar
+  services:
+  - solace-pubsub-sample-instance
+  env:
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+    SPRING_PROFILES_ACTIVE: cloud
