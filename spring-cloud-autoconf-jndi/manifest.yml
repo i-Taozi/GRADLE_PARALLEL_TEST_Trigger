@@ -1,0 +1,11 @@
+---
+applications:
+- name: solace-sample-spring-cloud-autoconf-jndi
+  memory: 1G
+  path: build/libs/solace-sample-spring-cloud-autoconf-jndi.jar
+  services:
+  - solace-pubsub-sample-instance
+  env:
+    solace.jms.demoConnectionFactoryJndiName: /jms/cf/default
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+    SPRING_PROFILES_ACTIVE: cloud

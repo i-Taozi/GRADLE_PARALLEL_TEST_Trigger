@@ -1,0 +1,67 @@
+buildscript {
+    ext {
+        springBootVersion = '2.3.0.RELEASE'
+
+        // Compatible with Spring Boot 2.3.0
+        // Consult the solace-spring-boot README versioning table
+        solaceSpringBootBomVersion = '1.1.0'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+        }
+        maven {
+            url "https://repository.jboss.org/nexus/content/repositories/public/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    archiveBaseName = 'solace-sample-spring-cloud-autoconf-jndi'
+    archiveVersion =  ''
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+      dirs 'libs'
+    }
+    mavenLocal()
+    maven {
+        url "http://apps-jenkins:9090/nexus/content/repositories/releases/"
+        allowInsecureProtocol true
+    }
+    maven {
+        url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+    }
+    maven {
+        url "https://repository.jboss.org/nexus/content/repositories/public/"
+    }
+}
+
+dependencies {
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
+
+    // Solace Spring Boot BOM
+    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:${solaceSpringBootBomVersion}"))
+
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
+    implementation("org.json:json:20151123")
+
+    // Solace JMS auto-configuration
+    implementation("com.solace.spring.boot:solace-jms-spring-boot-starter")
+}
+
+
